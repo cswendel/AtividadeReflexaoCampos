@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import anotacao.Campo;
+import anotacao.Tabela;
 import modelo.SuperTabela;
 
 public class ReflexaoTabela {
@@ -90,5 +91,38 @@ public class ReflexaoTabela {
 	public static void setValue(SuperTabela<?> tab, Field field, Object value) {
 		String pkMethodName = "set"+getUCFirst(field.getName());
 		invokeMethod(tab,pkMethodName,value);
+	}
+
+	public static String getTableName(Object obj) {
+		Class<?> clazz = obj.getClass();
+		if (clazz.isAnnotationPresent(Tabela.class)) {
+			Tabela tabela = clazz.getAnnotation(Tabela.class);
+			return tabela.nome();
+		}
+		return clazz.getSimpleName().toLowerCase();
+	}
+
+	public static boolean validarCamposObrigatorios(Object obj) {
+		Class<?> clazz = obj.getClass();
+		Field[] campos = clazz.getDeclaredFields();
+
+		for (Field campo : campos) {
+			if (campo.isAnnotationPresent(Campo.class)) {
+				Campo anotacao = campo.getAnnotation(Campo.class);
+				if (anotacao.isObrigatorio()) {
+					campo.setAccessible(true);
+					try {
+						Object valor = campo.get(obj);
+						if (valor == null || (valor instanceof String && ((String) valor).trim().isEmpty())) {
+							System.out.println("? Campo obrigatório não preenchido: " + campo.getName());
+							return false;
+						}
+					} catch (IllegalAccessException e) {
+						throw new RuntimeException("Erro ao acessar o campo: " + campo.getName(), e);
+					}
+				}
+			}
+		}
+		return true;
 	}
 }
