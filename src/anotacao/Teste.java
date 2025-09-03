@@ -13,10 +13,7 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RUNTIME)
 @Target(FIELD)
-/**
- * @author guili
- *
- */
+
 public @interface Teste {
 
 }
