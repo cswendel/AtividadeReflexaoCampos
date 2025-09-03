@@ -18,6 +18,7 @@ public abstract class SuperTabela<TypePK> {
 	}
 
 	public Boolean isCamposObrigatoriosPreenchidos(){
-		return ReflexaoTabela.validarCamposObrigatorios(this);
+		ReflexaoTabela.validarCamposObrigatorios(this);
+		return true;
 	}
 }

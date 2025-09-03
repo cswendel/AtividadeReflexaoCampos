@@ -102,27 +102,29 @@ public class ReflexaoTabela {
 		return clazz.getSimpleName().toLowerCase();
 	}
 
-	public static boolean validarCamposObrigatorios(Object obj) {
-		Class<?> clazz = obj.getClass();
-		Field[] campos = clazz.getDeclaredFields();
+	public static void validarCamposObrigatorios(Object obj) {
+		Class<?> cls = obj.getClass();
+		Field[] fields = cls.getDeclaredFields();
 
-		for (Field campo : campos) {
-			if (campo.isAnnotationPresent(Campo.class)) {
-				Campo anotacao = campo.getAnnotation(Campo.class);
-				if (anotacao.isObrigatorio()) {
-					campo.setAccessible(true);
+		for (Field field : fields) {
+			if (field.isAnnotationPresent(Campo.class)) {
+				Campo cmp = field.getAnnotation(Campo.class);
+				if (cmp.isObrigatorio()) {
+					field.setAccessible(true);
 					try {
-						Object valor = campo.get(obj);
-						if (valor == null || (valor instanceof String && ((String) valor).trim().isEmpty())) {
-							System.out.println("Campo obrigatório não preenchido: " + campo.getName());
-							return false;
+						Object valor = field.get(obj);
+						if (valor == null || (valor instanceof String && ((String) valor).isBlank())) {
+							throw new RuntimeException(
+									"Campo obrigatório vazio: " + field.getName() + " da classe " + cls.getSimpleName()
+							);
 						}
 					} catch (IllegalAccessException e) {
-						throw new RuntimeException("Erro ao acessar o campo: " + campo.getName(), e);
+						throw new RuntimeException(
+								"Erro ao acessar campo obrigatório: " + field.getName() + " da classe " + cls.getSimpleName(), e
+						);
 					}
 				}
 			}
 		}
-		return true;
 	}
 }

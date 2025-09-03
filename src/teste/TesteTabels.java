@@ -9,12 +9,15 @@ public class TesteTabels {
 		Pessoa tab = new Pessoa();
 		tab.setId(10);
 		tab.setNome("coisa");
+		tab.isCamposObrigatoriosPreenchidos();
 		printTableData(tab);
 		tab.setPk(20);
 		printTableData(tab);
+
 		Profissional p = new Profissional();
 		p.setCpf(11122233345L);
 		p.setNome("Profissional da alegria");
+		tab.isCamposObrigatoriosPreenchidos();
 		printTableData(p);
 		p.setCpf(99922233345L);
 		printTableData(p);
