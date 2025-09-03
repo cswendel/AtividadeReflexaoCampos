@@ -10,7 +10,6 @@ public class Pessoa extends SuperTabela<Integer>{
 
 	private Boolean transienteSave;
 
-
 	public Integer getId() {
 		return id;
 	}
@@ -26,7 +25,6 @@ public class Pessoa extends SuperTabela<Integer>{
 	public Boolean getTransienteSave() {
 		return transienteSave;
 	}
-
 	public void setTransienteSave(Boolean transienteSave) {
 		this.transienteSave = transienteSave;
 	}
