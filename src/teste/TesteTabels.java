@@ -17,7 +17,7 @@ public class TesteTabels {
 		Profissional p = new Profissional();
 		p.setCpf(11122233345L);
 		p.setNome("Profissional da alegria");
-		tab.isCamposObrigatoriosPreenchidos();
+		p.isCamposObrigatoriosPreenchidos();
 		printTableData(p);
 		p.setCpf(99922233345L);
 		printTableData(p);

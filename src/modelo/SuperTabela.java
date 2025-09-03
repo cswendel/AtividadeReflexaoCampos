@@ -14,7 +14,7 @@ public abstract class SuperTabela<TypePK> {
 		ReflexaoTabela.setPkValue(this,value);
 	}
 	public String getTableName(){
-		return this.getClass().getSimpleName().toLowerCase();
+		return utils.ReflexaoTabela.getTableName(this);
 	}
 
 	public Boolean isCamposObrigatoriosPreenchidos(){
