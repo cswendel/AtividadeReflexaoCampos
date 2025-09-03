@@ -3,7 +3,7 @@ package modelo;
 import anotacao.Campo;
 
 public class Pessoa extends SuperTabela<Integer>{
-	@Campo(colunaNome="super_ID",/*isPk=true,*/ isObrigatorio=true)
+	@Campo(colunaNome="super_ID",isPk=true, isObrigatorio=true)
 	private Integer id;
 	@Campo(colunaNome="txt_nome",isObrigatorio=true)
 	private String nome;

@@ -114,7 +114,7 @@ public class ReflexaoTabela {
 					try {
 						Object valor = campo.get(obj);
 						if (valor == null || (valor instanceof String && ((String) valor).trim().isEmpty())) {
-							System.out.println("? Campo obrigatório não preenchido: " + campo.getName());
+							System.out.println("Campo obrigatório não preenchido: " + campo.getName());
 							return false;
 						}
 					} catch (IllegalAccessException e) {
